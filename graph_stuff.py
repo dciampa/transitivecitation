@@ -2,7 +2,7 @@ import networkx as nx
 import requests
 
 #docstring adapted from ads.Article.build_citation_tree
-def build_citation_tree(start_bibcode, token, depth=1, **kwargs):
+def build_citation_graph(start_bibcode, token, depth=1, **kwargs):
     """
     Builds a citation tree for a paper with bibcode `start_bibcode`
     :param start_bibcode:
