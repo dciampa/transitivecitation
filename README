@@ -1,1 +1,5 @@
-Here we are
+Transitive citation creates a citation tree for a given article entry.
+
+Dependencies:
+-------------
+networkx and requests and their dependencies
