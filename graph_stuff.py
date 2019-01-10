@@ -21,11 +21,12 @@ def build_citation_graph(start_bibcode, token, depth=1, **kwargs):
     level = 0
     citation_graph.add_node(start_bibcode)
     bibcodes_to_query = [start_bibcode]
-    
+    citation_graph.node[start_bibcode]['pubdate'] = int(start_bibcode[0:4])
+
     while (level < depth) and (0 < len(bibcodes_to_query)):
         level += 1
         new_bibcodes_to_query = []
-        
+
         query_string = 'bibcode\n' + '\n'.join(bibcodes_to_query)
         r = requests.post("https://api.adsabs.harvard.edu/v1/search/bigquery",\
                          params={"q":"*:*", "fl": "bibcode,title,citation", "rows":2000},
@@ -44,8 +45,8 @@ def build_citation_graph(start_bibcode, token, depth=1, **kwargs):
                         new_bibcodes_to_query.append(cbibcode)
                     if cbibcode != start_bibcode:
                         citation_graph.add_edge(cbibcode, qbibcode)
-                
+                        citation_graph.node[cbibcode]['pubdate'] = int(cbibcode[0:4])
+
         bibcodes_to_query = new_bibcodes_to_query
-    
+
     return citation_graph
-    

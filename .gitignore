@@ -1,0 +1,6 @@
+*.pdf
+*.png
+.DS_Store
+.ipynb_checkpoints
+__pycache__
+make_some_examples.ipynb
