@@ -17,7 +17,7 @@ def build_citation_graph(start_bibcode, token, depth=1, **kwargs):
         A list of citation to the current article, with pre-loaded
         citation down by ``depth``.
     """
-    citation_graph = nx.DiGraph()
+    citation_graph = nx.Graph()
     level = 0
     citation_graph.add_node(start_bibcode)
     bibcodes_to_query = [start_bibcode]
@@ -42,7 +42,8 @@ def build_citation_graph(start_bibcode, token, depth=1, **kwargs):
                     #don't query if paper has already appeared or if the paper has 0 cites
                     if (cbibcode not in citation_graph):
                         new_bibcodes_to_query.append(cbibcode)
-                    citation_graph.add_edge(cbibcode, qbibcode)
+                    if cbibcode != start_bibcode:
+                        citation_graph.add_edge(cbibcode, qbibcode)
                 
         bibcodes_to_query = new_bibcodes_to_query
     
